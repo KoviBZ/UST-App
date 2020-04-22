@@ -9,8 +9,8 @@ import com.ustapp.R
 
 class PersonalDataRow(context: Context, attrs: AttributeSet) : LinearLayout(context, attrs) {
 
-    val label: TextView by lazy { findViewById(R.id.label) }
-    val valueField: TextView by lazy { findViewById(R.id.value_field) }
+    private val label: TextView by lazy { findViewById<TextView>(R.id.label) }
+    private val valueField: TextView by lazy { findViewById<TextView>(R.id.value_field) }
 
     init {
         init(context, attrs)

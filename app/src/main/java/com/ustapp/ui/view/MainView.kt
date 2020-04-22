@@ -1,10 +1,10 @@
 package com.ustapp.ui.view
 
-import com.ustapp.network.dto.UserData
+import com.ustapp.network.dto.UserPersonalData
 
 interface MainView {
 
-    fun onProfileLoadedSuccess(userData: UserData)
+    fun onProfileLoadedSuccess(userPersonalData: UserPersonalData)
 
     fun onProfileLoadedFailure(throwable: Throwable)
 }
