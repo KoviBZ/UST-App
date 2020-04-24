@@ -5,148 +5,54 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ustapp.R
 import com.ustapp.network.dto.HeaderData
+import com.ustapp.ui.app.CVApplication
+import com.ustapp.ui.main.di.MainModule
+import com.ustapp.ui.main.presenter.MainPresenter
 import com.ustapp.utils.Constants
 import com.ustapp.views.CVAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 import kotlin.collections.LinkedHashMap
 
 class MainActivity : AppCompatActivity(), MainView {
 
+    @Inject
+    lateinit var presenter: MainPresenter
+
+    lateinit var adapter: CVAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val appComponent = CVApplication.getApplicationComponent()
+        val mainComponent = appComponent.plusMainComponent(MainModule())
+        mainComponent.inject(this)
+
         recycler_view.layoutManager = LinearLayoutManager(this)
-        val adapter = CVAdapter(this)
-        adapter.setItems(prepareList())
+        adapter = CVAdapter(this)
+
+        presenter.attachView(this)
+        presenter.loadUserData()
+    }
+
+    override fun onProfileLoadedSuccess(list: List<Pair<String, String>>) {
+        adapter.setItems(list)
         adapter.notifyDataSetChanged()
 
         recycler_view.adapter = adapter
-    }
-
-    override fun onProfileLoadedSuccess(headerData: HeaderData) {
-
     }
 
     override fun onProfileLoadedFailure(throwable: Throwable) {
         TODO("Not yet implemented")
     }
 
-    private fun prepareList(): List<Pair<String, String>> {
-        val personalMap = LinkedHashMap<String, String>()
+    override fun showProgress() {
+        TODO("Not yet implemented")
+    }
 
-        personalMap.put(
-            "Registered address",
-            "ul. Niwa 3, 28-100 Busko-Zdrój"
-        )
-        personalMap.put(
-            "Temporary address",
-            "ul. Fieldorfa-Nila 9/114, 31-209 Kraków"
-        )
-        personalMap.put(
-            "Phone",
-            "784 533 297"
-        )
-        personalMap.put(
-            "E-mail",
-            "mateusz.k.kowalski@wp.pl"
-        )
-        personalMap.put(
-            "LinkedIn",
-            "https://www.linkedin.com/in/mateusz-kowalski-a06aba64/"
-        )
-
-        val educationMap = LinkedHashMap<String, String>()
-
-        educationMap.put(
-            "2007-2013",
-            "Politechnika Krakowska im. Tadeusza Kościuszki, kierunek Informatyka, stopień I"
-        )
-        educationMap.put(
-            "2014-2017",
-            "Politechnika Krakowska im. Tadeusza Kościuszki, kierunek Informatyka, stopień II"
-        )
-
-        val workingExperienceMap = LinkedHashMap<String, String>()
-        workingExperienceMap.put(
-            "2013-2017", "Android Developer w Miquido"
-        )
-        workingExperienceMap.put(
-            "2017-2019", "Android Developer w EPAM Systems"
-        )
-
-        val languageMap = LinkedHashMap<String, String>()
-        languageMap.put(
-            "Polish", "Native"
-        )
-        languageMap.put(
-            "English", "Very good"
-        )
-        languageMap.put(
-            "German", "Basic/average"
-        )
-
-        val skillMap = LinkedHashMap<String, String>()
-        skillMap.put(
-            "Polish", "Native"
-        )
-        skillMap.put(
-            "English", "Very good"
-        )
-        skillMap.put(
-            "German", "Basic/average"
-        )
-
-        val finalList = ArrayList<Pair<String, String>>()
-
-        finalList.add(
-            Pair(
-                Constants.PHOTO_HEADER,
-                "https://cdn.shopify.com/s/files/1/0223/4339/products/image_1108973_0b8b155d-fd0e-49d1-9f96-b71ec3edfff6_grande.jpg?v=1578614450"
-            )
-        )
-        finalList.add(
-            Pair(
-                Constants.NAME_HEADER,
-                "Mateusz Kowalski"
-            )
-        )
-
-        val personalIterator = personalMap.iterator()
-        while (personalIterator.hasNext()) {
-            val newElement = personalIterator.next()
-            finalList.add(Pair(newElement.key, newElement.value))
-        }
-
-        val eduationIterator = educationMap.iterator()
-        finalList.add(Pair(Constants.SECTION_HEADER, "Education"))
-        while (eduationIterator.hasNext()) {
-            val newElement = eduationIterator.next()
-            finalList.add(Pair(newElement.key, newElement.value))
-        }
-
-        val experienceIterator = workingExperienceMap.iterator()
-        finalList.add(Pair(Constants.SECTION_HEADER, "Experience"))
-        while (experienceIterator.hasNext()) {
-            val newElement = experienceIterator.next()
-            finalList.add(Pair(newElement.key, newElement.value))
-        }
-
-        val languageIterator = languageMap.iterator()
-        finalList.add(Pair(Constants.SECTION_HEADER, "Languages"))
-        while (languageIterator.hasNext()) {
-            val newElement = languageIterator.next()
-            finalList.add(Pair(newElement.key, newElement.value))
-        }
-
-        val skillIterator = skillMap.iterator()
-        finalList.add(Pair(Constants.SECTION_HEADER, "Skills"))
-        while (skillIterator.hasNext()) {
-            val newElement = skillIterator.next()
-            finalList.add(Pair(newElement.key, newElement.value))
-        }
-
-        return finalList
+    override fun hideProgress() {
+        TODO("Not yet implemented")
     }
 }
