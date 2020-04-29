@@ -31,11 +31,18 @@ class MainActivity : AppCompatActivity(), MainView {
         recycler_view.layoutManager = LinearLayoutManager(this)
         adapter = CVAdapter(this)
 
+        retry_button.setOnClickListener {
+            presenter.retry()
+            it.isEnabled = false
+        }
+
         presenter.attachView(this)
         presenter.loadUserData()
     }
 
     override fun onProfileLoadedSuccess(list: List<Pair<String, String>>) {
+        retry_container.visibility = View.GONE
+
         adapter.setItems(list)
         adapter.notifyDataSetChanged()
 
@@ -43,15 +50,15 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun onProfileLoadedFailure(throwable: Throwable) {
-        recycler_view.visibility = View.GONE
-        Log.e("MainActivity", "Error")
+        retry_button.isEnabled = true
+        retry_container.visibility = View.VISIBLE
     }
 
     override fun showProgress() {
-        Log.d("MainActivity", "show progress")
+        progress_bar.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-        Log.d("MainActivity", "hide progress")
+        progress_bar.visibility = View.GONE
     }
 }

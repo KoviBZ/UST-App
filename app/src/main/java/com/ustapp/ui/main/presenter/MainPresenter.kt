@@ -12,8 +12,8 @@ class MainPresenter(
 
     fun loadUserData() {
         val disposable = mainModel.getUserData()
-            .applyDefaultProgressActions()
             .applyDefaultIOSchedulers()
+            .applyDefaultProgressActions()
             .subscribe(
                 { response ->
                     view.onProfileLoadedSuccess(response)
@@ -23,5 +23,9 @@ class MainPresenter(
             )
 
         subscriptions.add(disposable)
+    }
+
+    fun retry() {
+        loadUserData()
     }
 }

@@ -63,13 +63,14 @@ class CVAdapter(
     }
 
     private fun inflateView(parent: ViewGroup, viewType: Int): View {
-        return when (viewType) {
-            0 -> LayoutInflater.from(context).inflate(R.layout.view_avatar_holder, parent, false)
-            1 -> LayoutInflater.from(context).inflate(R.layout.view_section_holder, parent, false)
-            2 -> LayoutInflater.from(context).inflate(R.layout.view_skill_holder, parent, false)
-            else -> LayoutInflater.from(context)
-                .inflate(R.layout.view_personal_data_row, parent, false)
+        val layoutRes: Int = when (viewType) {
+            0 -> R.layout.view_avatar_holder
+            1 -> R.layout.view_section_holder
+            2 -> R.layout.view_skill_holder
+            else -> R.layout.view_personal_data_row
         }
+
+        return LayoutInflater.from(context).inflate(layoutRes, parent, false)
     }
 
     inner class AvatarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
