@@ -1,3 +1,10 @@
 package com.ustapp.network.dto
 
-interface BaseUserData
+import com.google.gson.annotations.SerializedName
+
+data class UserDataResponse(
+    @SerializedName("photoUrl") val photoUrl: String?,
+    @SerializedName("personalData") val personalData: LinkedHashMap<String, String>,
+    @SerializedName("education") val educationData: LinkedHashMap<String, String>,
+    @SerializedName("experience") val experienceData: LinkedHashMap<String, String>
+)

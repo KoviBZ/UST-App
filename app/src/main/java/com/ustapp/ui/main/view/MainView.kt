@@ -1,6 +1,5 @@
 package com.ustapp.ui.main.view
 
-import com.ustapp.network.dto.HeaderData
 import com.ustapp.ui.common.view.BaseView
 
 interface MainView: BaseView {

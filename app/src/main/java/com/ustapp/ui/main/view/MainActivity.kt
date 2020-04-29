@@ -2,18 +2,16 @@ package com.ustapp.ui.main.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ustapp.R
-import com.ustapp.network.dto.HeaderData
 import com.ustapp.ui.app.CVApplication
 import com.ustapp.ui.main.di.MainModule
 import com.ustapp.ui.main.presenter.MainPresenter
-import com.ustapp.utils.Constants
 import com.ustapp.views.CVAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
-import kotlin.collections.LinkedHashMap
 
 class MainActivity : AppCompatActivity(), MainView {
 
@@ -45,14 +43,15 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun onProfileLoadedFailure(throwable: Throwable) {
-        TODO("Not yet implemented")
+        recycler_view.visibility = View.GONE
+        Log.e("MainActivity", "Error")
     }
 
     override fun showProgress() {
-        TODO("Not yet implemented")
+        Log.d("MainActivity", "show progress")
     }
 
     override fun hideProgress() {
-        TODO("Not yet implemented")
+        Log.d("MainActivity", "hide progress")
     }
 }

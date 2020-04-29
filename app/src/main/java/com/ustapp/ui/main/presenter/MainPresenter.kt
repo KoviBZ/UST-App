@@ -8,10 +8,20 @@ import com.ustapp.ui.main.view.MainView
 class MainPresenter(
     schedulerProvider: BaseSchedulerProvider,
     private val mainModel: MainModel
-): BasePresenter<MainView>(schedulerProvider) {
+) : BasePresenter<MainView>(schedulerProvider) {
 
     fun loadUserData() {
-        val list = mainModel.getUserData()
-        view.onProfileLoadedSuccess(list)
+        val disposable = mainModel.getUserData()
+            .applyDefaultProgressActions()
+            .applyDefaultIOSchedulers()
+            .subscribe(
+                { response ->
+                    view.onProfileLoadedSuccess(response)
+                }, { error ->
+                    view.onProfileLoadedFailure(error)
+                }
+            )
+
+        subscriptions.add(disposable)
     }
 }

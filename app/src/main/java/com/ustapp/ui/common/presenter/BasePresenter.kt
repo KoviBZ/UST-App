@@ -31,10 +31,10 @@ open class BasePresenter<T : BaseView>(
             .observeOn(schedulerProvider.ui())
     }
 
-    fun Completable.applyDefaultIOSchedulers(): Completable {
+    fun <RESPONSE> Single<RESPONSE>.applyDefaultProgressActions(): Single<RESPONSE> {
         return this
-            .subscribeOn(schedulerProvider.io())
-            .observeOn(schedulerProvider.ui())
+            .doOnSubscribe { view.showProgress() }
+            .doOnTerminate { view.hideProgress() }
     }
 
     fun clearSubscriptions() {

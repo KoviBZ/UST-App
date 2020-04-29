@@ -25,8 +25,7 @@ class CVAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (itemsList[position].first) {
-            Constants.PHOTO_HEADER,
-            Constants.NAME_HEADER -> 0
+            Constants.PHOTO_HEADER -> 0
             Constants.SECTION_HEADER -> 1
             else -> 2
         }
@@ -67,15 +66,13 @@ class CVAdapter(
     }
 
     inner class AvatarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private var nameHeader: TextView = itemView.findViewById(R.id.name)
         private var avatarPhoto: ImageView = itemView.findViewById(R.id.avatar_photo)
 
         fun bind(userData: Pair<String, String>) {
-            if(userData.first == Constants.NAME_HEADER) {
-                nameHeader.text = userData.second
-            } else if (userData.first == Constants.PHOTO_HEADER) {
-                Glide.with(context).load(userData.second).into(avatarPhoto)
-            }
+            Glide.with(context)
+                .load(userData.second)
+                .placeholder(R.drawable.ic_launcher)
+                .into(avatarPhoto)
         }
     }
 
@@ -89,11 +86,11 @@ class CVAdapter(
 
     inner class RowViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var label: TextView = itemView.findViewById<TextView>(R.id.label)
-        private var field_value: TextView = itemView.findViewById<TextView>(R.id.value_field)
+        private var fieldValue: TextView = itemView.findViewById<TextView>(R.id.value_field)
 
         fun bind(userData: Pair<String, String>) {
             label.text = userData.first
-            field_value.text = userData.second
+            fieldValue.text = userData.second
         }
     }
 }

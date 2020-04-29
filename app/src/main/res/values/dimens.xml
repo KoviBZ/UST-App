@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_small">4dp</dimen>
+    <dimen name="padding_medium">8dp</dimen>
     <dimen name="padding_standard">16dp</dimen>
 
-    <dimen name="profile_pic_size">120dp</dimen>
+    <dimen name="retry_button_edge">2dp</dimen>
+    <dimen name="retry_button_corner">16dp</dimen>
+    <dimen name="retry_button_height">32dp</dimen>
+    <dimen name="retry_button_width">240dp</dimen>
+
+    <dimen name="profile_pic_size">160dp</dimen>
 
     <dimen name="header_text_size">20sp</dimen>
-    <dimen name="section_text_size">14sp</dimen>
+    <dimen name="section_text_size">16sp</dimen>
+    <dimen name="row_text_size">14sp</dimen>
 
 </resources>

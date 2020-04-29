@@ -1,0 +1,17 @@
+{
+  "personalData": {
+    "Imię i nazwisko": "Mateusz Kowalski",
+    "Stan cywilny": "Kawaler",
+    "Adres zamieszkania": "ul. Fieldorfa-Nila 9/114, 31-209 Kraków",
+    "E-mail": "mateusz.k.kowalski@wp.pl",
+    "Telefon": "+48 784 533 297"
+  },
+  "education": {
+    "2007-2013": "Politechnika Krakowska im. Tadeusza Kościuszki, I stopień, kierunek Informatyka",
+    "2014-2016": "Politechnika Krakowska im. Tadeusza Kościuszki, II stopień, kierunek Informatyka, specjalizacja Informatyka Stosowana"
+  },
+  "experience": {
+    "01.12.2013 - 31.07.2017": "Android Developer w Miquido",
+    "16.08.2017 - 31.12.2019": "Android Developer w EPAM Systems"
+  }
+}

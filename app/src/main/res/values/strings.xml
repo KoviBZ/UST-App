@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CV App</string>
+
+    <string name="cv_header">Curriculum Vitae</string>
+
+    <string name="error_button_label">Error has occurred</string>
+    <string name="error_button_text">Retry</string>
 </resources>
