@@ -3,6 +3,13 @@
 
     <string name="cv_header">Curriculum Vitae</string>
 
+    <string name="education">Education</string>
+    <string name="experience">Experience</string>
+    <string name="languages">Languages</string>
+    <string name="skills">Skills</string>
+
+    <string name="skill_row_text">- %s</string>
+
     <string name="error_button_label">Error has occurred</string>
     <string name="error_button_text">Retry</string>
 </resources>

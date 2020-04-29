@@ -27,7 +27,8 @@ class CVAdapter(
         return when (itemsList[position].first) {
             Constants.PHOTO_HEADER -> 0
             Constants.SECTION_HEADER -> 1
-            else -> 2
+            Constants.SKILL_ROW -> 2
+            else -> 3
         }
     }
 
@@ -35,6 +36,7 @@ class CVAdapter(
         return when (viewType) {
             0 -> AvatarViewHolder(inflateView(parent, viewType))
             1 -> SectionViewHolder(inflateView(parent, viewType))
+            2 -> SkillRowViewHolder(inflateView(parent, viewType))
             else -> RowViewHolder(inflateView(parent, viewType))
         }
     }
@@ -50,8 +52,12 @@ class CVAdapter(
                 viewHolder1.bind(itemsList[position])
             }
             2 -> {
-                val viewHolder2 = holder as RowViewHolder
+                val viewHolder2 = holder as SkillRowViewHolder
                 viewHolder2.bind(itemsList[position])
+            }
+            else -> {
+                val viewHolder3 = holder as RowViewHolder
+                viewHolder3.bind(itemsList[position])
             }
         }
     }
@@ -60,6 +66,7 @@ class CVAdapter(
         return when (viewType) {
             0 -> LayoutInflater.from(context).inflate(R.layout.view_avatar_holder, parent, false)
             1 -> LayoutInflater.from(context).inflate(R.layout.view_section_holder, parent, false)
+            2 -> LayoutInflater.from(context).inflate(R.layout.view_skill_holder, parent, false)
             else -> LayoutInflater.from(context)
                 .inflate(R.layout.view_personal_data_row, parent, false)
         }
@@ -91,6 +98,14 @@ class CVAdapter(
         fun bind(userData: Pair<String, String>) {
             label.text = userData.first
             fieldValue.text = userData.second
+        }
+    }
+
+    inner class SkillRowViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private var skillText: TextView = itemView.findViewById<TextView>(R.id.skill_text)
+
+        fun bind(userData: Pair<String, String>) {
+            skillText.text = String.format(context.getString(R.string.skill_row_text), userData.second)
         }
     }
 }
