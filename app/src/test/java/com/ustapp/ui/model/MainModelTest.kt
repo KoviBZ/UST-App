@@ -6,16 +6,19 @@ import com.ustapp.network.CVDataAPI
 import com.ustapp.network.dto.UserDataResponse
 import com.ustapp.ui.main.model.DefaultMainModel
 import com.ustapp.ui.main.model.MainModel
+import com.ustapp.utils.service.StringService
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
 class MainModelTest : Spek ({
 
     val api: CVDataAPI by memoized { mock<CVDataAPI>() }
+    val stringService: StringService by memoized { mock<StringService>() }
 
-    val model: MainModel by memoized { DefaultMainModel(api) }
+    val model: MainModel by memoized { DefaultMainModel(api, stringService) }
 
     describe("retrieve cv response") {
 
@@ -32,24 +35,23 @@ class MainModelTest : Spek ({
             observer.assertComplete()
         }
 
-        it("should return photoUrl as first item") {
-            observer.assertValue(response.photoUrl)
+        it("should return photoUrl as first element") {
+            assertEquals(observer.values()[0][0].second, response.photoUrl)
         }
     }
 })
 
 private fun apiResponse(): UserDataResponse {
     val languages = LinkedHashMap<String, String>()
-
     languages["Polish"] = "native"
     languages["English"] = "very good"
 
     return UserDataResponse(
         "url_path",
-        LinkedHashMap<String, String>(),
-        LinkedHashMap<String, String>(),
-        LinkedHashMap<String, String>(),
+        LinkedHashMap(),
+        LinkedHashMap(),
+        LinkedHashMap(),
         languages,
-        ArrayList<String>()
+        ArrayList()
     )
 }

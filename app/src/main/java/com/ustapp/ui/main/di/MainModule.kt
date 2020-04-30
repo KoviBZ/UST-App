@@ -6,7 +6,7 @@ import com.ustapp.network.utils.BaseSchedulerProvider
 import com.ustapp.ui.main.model.DefaultMainModel
 import com.ustapp.ui.main.model.MainModel
 import com.ustapp.ui.main.presenter.MainPresenter
-import com.ustapp.utils.StringService
+import com.ustapp.utils.service.StringService
 import dagger.Module
 import dagger.Provides
 

@@ -3,7 +3,7 @@ package com.ustapp.ui.main.model
 import com.ustapp.R
 import com.ustapp.network.CVDataAPI
 import com.ustapp.utils.Constants
-import com.ustapp.utils.StringService
+import com.ustapp.utils.service.StringService
 import io.reactivex.Single
 
 class DefaultMainModel(
