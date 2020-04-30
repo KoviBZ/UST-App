@@ -27,29 +27,7 @@ class MainPresenterTest : Spek({
 
     describe("attach view") {
 
-        context("model returns EMPTY data") {
-            val response: List<Pair<String, String>> = emptyList()
-
-            beforeEachTest {
-                given(model.getUserData()).willReturn(Single.just(response))
-
-                presenter.loadUserData()
-            }
-
-            it("should call onProfileLoadedSuccess") {
-                verify(view).onProfileLoadedSuccess(response)
-            }
-
-            it("should show progress") {
-                verify(view).showProgress()
-            }
-
-            it("should hide progress") {
-                verify(view).hideProgress()
-            }
-        }
-
-        context("model returns NON-EMPTY data") {
+        context("model returns success response") {
             val response = prepareResponse()
 
             beforeEachTest {
@@ -91,6 +69,28 @@ class MainPresenterTest : Spek({
             it("should hide progress") {
                 verify(view).hideProgress()
             }
+        }
+    }
+
+    describe("retry") {
+        val response = prepareResponse()
+
+        beforeEachTest {
+            given(model.getUserData()).willReturn(Single.just(response))
+
+            presenter.retry()
+        }
+
+        it("should call onProfileLoadedSuccess") {
+            verify(view).onProfileLoadedSuccess(response)
+        }
+
+        it("should show progress") {
+            verify(view).showProgress()
+        }
+
+        it("should hide progress") {
+            verify(view).hideProgress()
         }
     }
 

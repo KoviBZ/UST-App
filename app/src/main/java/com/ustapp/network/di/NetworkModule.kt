@@ -1,5 +1,6 @@
 package com.ustapp.network.di
 
+import com.ustapp.BuildConfig
 import com.ustapp.network.CVDataAPI
 import com.ustapp.utils.Constants
 import dagger.Module
@@ -10,11 +11,10 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-
 @Module
 class NetworkModule {
 
-    private val HOST = "https://private-e0ac4-kovibz.apiary-mock.com/"
+    private val HOST = BuildConfig.BASE_URL
 
     @Provides
     fun provideCurrencyApi(): CVDataAPI {

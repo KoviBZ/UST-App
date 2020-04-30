@@ -15,11 +15,7 @@ class CVAdapter(
     private val context: Context
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    lateinit var itemsList: List<Pair<String, String>>
-
-    fun setItems(itemsList: List<Pair<String, String>>) {
-        this.itemsList = itemsList
-    }
+    private val itemsList: MutableList<Pair<String, String>> = mutableListOf()
 
     override fun getItemCount(): Int = itemsList.size
 
@@ -62,6 +58,12 @@ class CVAdapter(
         }
     }
 
+    fun setItems(itemsList: List<Pair<String, String>>) {
+        this.itemsList.clear()
+        this.itemsList.addAll(itemsList)
+        notifyDataSetChanged()
+    }
+
     private fun inflateView(parent: ViewGroup, viewType: Int): View {
         val layoutRes: Int = when (viewType) {
             0 -> R.layout.view_avatar_holder
@@ -74,7 +76,7 @@ class CVAdapter(
     }
 
     inner class AvatarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private var avatarPhoto: ImageView = itemView.findViewById(R.id.avatar_photo)
+        private val avatarPhoto: ImageView = itemView.findViewById(R.id.avatar_photo)
 
         fun bind(userData: Pair<String, String>) {
             Glide.with(context)
@@ -85,7 +87,7 @@ class CVAdapter(
     }
 
     inner class SectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private var header: TextView = itemView.findViewById<TextView>(R.id.section_header)
+        private val header: TextView = itemView.findViewById(R.id.section_header)
 
         fun bind(userData: Pair<String, String>) {
             header.text = userData.second
@@ -93,8 +95,8 @@ class CVAdapter(
     }
 
     inner class RowViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private var label: TextView = itemView.findViewById<TextView>(R.id.label)
-        private var fieldValue: TextView = itemView.findViewById<TextView>(R.id.value_field)
+        private val label: TextView = itemView.findViewById(R.id.label)
+        private val fieldValue: TextView = itemView.findViewById(R.id.value_field)
 
         fun bind(userData: Pair<String, String>) {
             label.text = userData.first
@@ -103,7 +105,7 @@ class CVAdapter(
     }
 
     inner class SkillRowViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private var skillText: TextView = itemView.findViewById<TextView>(R.id.skill_text)
+        private val skillText: TextView = itemView.findViewById(R.id.skill_text)
 
         fun bind(userData: Pair<String, String>) {
             skillText.text = String.format(context.getString(R.string.skill_row_text), userData.second)

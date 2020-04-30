@@ -15,23 +15,39 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField 'String', 'BASE_URL', '"https://private-e0ac4-kovibz.apiary-mock.com/"'
+    }
+
+    /* I need to clarify this:
+       This is keystore to test release variant. If it would have been keystore for Google Play,
+       I wouldn't put it in repository
+    */
+    signingConfigs {
+        release {
+            storeFile file("release.keystore.jks")
+            storePassword "0JE0JMeTSa"
+            keyAlias "releasekey"
+            keyPassword "0JE0JMeTSa"
+        }
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            debuggable false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
         }
     }
-
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
 
     // tests
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version"
@@ -41,6 +57,7 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_jupiter_version"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit_jupiter_version"
 
+    //Recycler view
     implementation "androidx.recyclerview:recyclerview:$appcompat_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
 
@@ -50,8 +67,8 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
 
     //RxJava
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"

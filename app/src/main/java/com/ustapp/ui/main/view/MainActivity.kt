@@ -1,9 +1,8 @@
 package com.ustapp.ui.main.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ustapp.R
 import com.ustapp.ui.app.CVApplication
@@ -40,11 +39,15 @@ class MainActivity : AppCompatActivity(), MainView {
         presenter.loadUserData()
     }
 
+    override fun onDestroy() {
+        presenter.disposeSubscriptions()
+        super.onDestroy()
+    }
+
     override fun onProfileLoadedSuccess(list: List<Pair<String, String>>) {
         retry_container.visibility = View.GONE
 
         adapter.setItems(list)
-        adapter.notifyDataSetChanged()
 
         recycler_view.adapter = adapter
     }

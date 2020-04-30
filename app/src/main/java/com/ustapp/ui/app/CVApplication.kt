@@ -15,7 +15,7 @@ class CVApplication : Application() {
 
     private fun buildComponent(): ApplicationComponent =
         DaggerApplicationComponent.builder()
-            .applicationModule(ApplicationModule())
+            .applicationModule(ApplicationModule(applicationContext))
             .build()
 
     companion object {

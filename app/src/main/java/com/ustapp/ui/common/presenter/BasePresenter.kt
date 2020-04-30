@@ -3,7 +3,6 @@ package com.ustapp.ui.common.presenter
 import androidx.annotation.VisibleForTesting
 import com.ustapp.network.utils.BaseSchedulerProvider
 import com.ustapp.ui.common.view.BaseView
-import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 
@@ -21,8 +20,8 @@ open class BasePresenter<T : BaseView>(
         subscriptions = CompositeDisposable()
     }
 
-    fun detachView() {
-        subscriptions.clear()
+    fun disposeSubscriptions() {
+        subscriptions.dispose()
     }
 
     fun <RESPONSE> Single<RESPONSE>.applyDefaultIOSchedulers(): Single<RESPONSE> {
@@ -35,13 +34,5 @@ open class BasePresenter<T : BaseView>(
         return this
             .doOnSubscribe { view.showProgress() }
             .doOnTerminate { view.hideProgress() }
-    }
-
-    fun clearSubscriptions() {
-        subscriptions.clear()
-    }
-
-    fun disposeSubscriptions() {
-        subscriptions.dispose()
     }
 }

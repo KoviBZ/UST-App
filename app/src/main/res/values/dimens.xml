@@ -11,7 +11,7 @@
 
     <dimen name="profile_pic_size">160dp</dimen>
 
-    <dimen name="header_text_size">20sp</dimen>
+    <dimen name="header_text_size">24sp</dimen>
     <dimen name="section_text_size">16sp</dimen>
     <dimen name="row_text_size">14sp</dimen>
 

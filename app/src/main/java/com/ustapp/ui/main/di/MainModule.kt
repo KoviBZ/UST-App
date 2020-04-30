@@ -6,6 +6,7 @@ import com.ustapp.network.utils.BaseSchedulerProvider
 import com.ustapp.ui.main.model.DefaultMainModel
 import com.ustapp.ui.main.model.MainModel
 import com.ustapp.ui.main.presenter.MainPresenter
+import com.ustapp.utils.StringService
 import dagger.Module
 import dagger.Provides
 
@@ -22,6 +23,10 @@ class MainModule {
     )
 
     @Provides
-    fun providesMainModel(cvDataApi: CVDataAPI):
-            MainModel = DefaultMainModel(cvDataApi)
+    fun providesMainModel(
+        cvDataApi: CVDataAPI,
+        stringService: StringService
+    ): MainModel = DefaultMainModel(
+        cvDataApi,
+        stringService)
 }
